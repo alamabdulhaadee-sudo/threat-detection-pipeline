@@ -41,6 +41,10 @@ def test_config():
                 "max_attempts": 2,
                 "window_seconds": 120,
             },
+            "port_scan": {
+                "max_ports": 5,
+                "window_seconds": 60,
+            },
             "malware": {
                 "blocklist_ips": ["185.220.101.1", "198.51.100.99"],
                 "suspicious_processes": ["mimikatz", "netcat", "meterpreter"],

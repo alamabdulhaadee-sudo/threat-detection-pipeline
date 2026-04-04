@@ -10,6 +10,7 @@ An automated log ingestion and threat detection pipeline that monitors system lo
   - Privilege escalation (sudo/su failures per user)
   - Malware C2 IPs (blocklist matching)
   - Malicious processes (mimikatz, netcat, meterpreter, etc.)
+  - Port scanning (distinct destination ports per IP within a time window)
 - **Slack alerting** — formatted Block Kit messages with severity-based color coding
 - **Alert deduplication** — cooldown window prevents alert flooding
 - **SQLite persistence** — every alert stored locally for audit and reporting
@@ -76,7 +77,8 @@ threat-detection-pipeline/
 │   ├── base.py                  # BaseDetector + Alert TypedDict
 │   ├── brute_force.py           # SSH brute force detection
 │   ├── privesc.py               # Privilege escalation detection
-│   └── malware_indicators.py   # C2 IP + malicious process detection
+│   ├── malware_indicators.py    # C2 IP + malicious process detection
+│   └── port_scan.py             # Port scan detection (sliding window)
 ├── alerting/
 │   ├── slack_sender.py          # Slack Block Kit webhook sender
 │   └── deduplicator.py          # Cooldown-based alert deduplication
@@ -85,7 +87,7 @@ threat-detection-pipeline/
 ├── reporting/
 │   └── summary.py               # Terminal + HTML report generator
 ├── sample_logs/                 # Demo log files for testing
-└── tests/                       # pytest suite (15 tests)
+└── tests/                       # pytest suite (22 tests)
 ```
 
 ## Running Tests
@@ -101,10 +103,27 @@ pytest tests/ -v
 [ALERT] [HIGH] privilege_escalation | user hacker | 3 sudo_failure attempts within 120s | slack=sent
 [ALERT] [CRITICAL] malware_c2_ip | 185.220.101.1 | Connection from known C2/malicious IP | slack=sent
 [ALERT] [CRITICAL] malware_process | mimikatz detected on 10.10.10.99 | slack=sent
+[ALERT] [MEDIUM] port_scan | 45.33.32.156 | Port scan detected: probed 10 distinct ports within 30s | slack=sent
 ```
+
 ## Screenshots
 
-### Slack Alerts Overview
+### All Tests Passing
+22 tests across all detectors and alerting components — run with `pytest tests/ -v`.
+
+![Tests Passed](screenshots/tests_passed.png)
+
+### Port Scan Detection — Terminal Output
+Live terminal output showing the port scan detector firing as a suspicious IP probes 10 distinct ports within 30 seconds.
+
+![Port Scan Detection](screenshots/port_scan_detection_terminal.png)
+
+### Slack Alerts — Real-Time Notifications
+Alerts delivered to Slack in real time with severity-based formatting. Each alert includes the rule name, source IP, and a human-readable description.
+
+![Slack Alerts](screenshots/slack_alerts_overview.png)
+
+### Slack Alerts Overview (Legacy)
 ![Slack Alerts](screenshots/slack-alerts-overview.png)
 
 ### Critical Malware Detection

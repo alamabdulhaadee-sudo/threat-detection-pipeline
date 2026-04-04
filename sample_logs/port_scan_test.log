@@ -1,0 +1,23 @@
+# Sample firewall/connection logs for port scan detection demo
+# Format: JSON events (one per line) — feed into batch mode via events.json.sample style
+# Attacker IP 45.33.32.156 probes 10 distinct ports within 30 seconds → triggers alert
+# Legitimate host 10.0.0.5 makes normal connections → no alert
+
+{"timestamp": "2026-03-25T14:00:01", "source_ip": "45.33.32.156", "dest_port": 22,   "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49001 -> 10.0.1.5:22"}
+{"timestamp": "2026-03-25T14:00:03", "source_ip": "45.33.32.156", "dest_port": 80,   "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49002 -> 10.0.1.5:80"}
+{"timestamp": "2026-03-25T14:00:05", "source_ip": "45.33.32.156", "dest_port": 443,  "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49003 -> 10.0.1.5:443"}
+{"timestamp": "2026-03-25T14:00:07", "source_ip": "45.33.32.156", "dest_port": 3306, "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49004 -> 10.0.1.5:3306"}
+{"timestamp": "2026-03-25T14:00:09", "source_ip": "10.0.0.5",     "dest_port": 443,  "action": "port_scan", "username": "", "raw": "ACCEPT TCP 10.0.0.5:55000 -> 10.0.1.5:443"}
+{"timestamp": "2026-03-25T14:00:11", "source_ip": "45.33.32.156", "dest_port": 8080, "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49005 -> 10.0.1.5:8080"}
+{"timestamp": "2026-03-25T14:00:13", "source_ip": "45.33.32.156", "dest_port": 21,   "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49006 -> 10.0.1.5:21"}
+{"timestamp": "2026-03-25T14:00:15", "source_ip": "45.33.32.156", "dest_port": 25,   "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49007 -> 10.0.1.5:25"}
+{"timestamp": "2026-03-25T14:00:17", "source_ip": "10.0.0.5",     "dest_port": 443,  "action": "port_scan", "username": "", "raw": "ACCEPT TCP 10.0.0.5:55001 -> 10.0.1.5:443"}
+{"timestamp": "2026-03-25T14:00:19", "source_ip": "45.33.32.156", "dest_port": 5432, "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49008 -> 10.0.1.5:5432"}
+{"timestamp": "2026-03-25T14:00:21", "source_ip": "45.33.32.156", "dest_port": 6379, "action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49009 -> 10.0.1.5:6379"}
+{"timestamp": "2026-03-25T14:00:23", "source_ip": "45.33.32.156", "dest_port": 27017,"action": "port_scan", "username": "", "raw": "REJECT TCP 45.33.32.156:49010 -> 10.0.1.5:27017"}
+# ^ alert fires here — 10 distinct ports within 23 seconds from 45.33.32.156
+
+# Legitimate host — same port hit multiple times, no scan
+{"timestamp": "2026-03-25T14:01:00", "source_ip": "10.0.0.5", "dest_port": 443, "action": "port_scan", "username": "", "raw": "ACCEPT TCP 10.0.0.5:55100 -> 10.0.1.5:443"}
+{"timestamp": "2026-03-25T14:01:05", "source_ip": "10.0.0.5", "dest_port": 443, "action": "port_scan", "username": "", "raw": "ACCEPT TCP 10.0.0.5:55101 -> 10.0.1.5:443"}
+{"timestamp": "2026-03-25T14:01:10", "source_ip": "10.0.0.5", "dest_port": 443, "action": "port_scan", "username": "", "raw": "ACCEPT TCP 10.0.0.5:55102 -> 10.0.1.5:443"}
