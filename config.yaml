@@ -1,0 +1,38 @@
+log_paths:
+  - /var/log/auth.log
+  - /var/log/system.log
+  - sample_logs/live_test.log
+
+watch_mode: true
+
+thresholds:
+  brute_force:
+    max_failures: 5
+    window_seconds: 60
+  port_scan:
+    max_ports: 10
+    window_seconds: 30
+  privesc:
+    max_attempts: 3
+    window_seconds: 120
+  malware:
+    blocklist_ips:
+      - "185.220.101.1"
+      - "198.51.100.99"
+    suspicious_processes:
+      - "mimikatz"
+      - "netcat"
+      - "nc.exe"
+      - "meterpreter"
+
+alerting:
+  cooldown_seconds: 300
+  slack_enabled: true
+
+storage:
+  db_path: alerts.db
+
+reporting:
+  schedule_cron: "0 8 * * *"
+  output_format: terminal
+  html_output_path: report.html

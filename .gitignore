@@ -1,0 +1,9 @@
+.env
+*.db
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+nohup.out
+report.html
+sample_logs/live_test.log

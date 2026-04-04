@@ -102,6 +102,13 @@ pytest tests/ -v
 [ALERT] [CRITICAL] malware_c2_ip | 185.220.101.1 | Connection from known C2/malicious IP | slack=sent
 [ALERT] [CRITICAL] malware_process | mimikatz detected on 10.10.10.99 | slack=sent
 ```
+## Screenshots
+
+### Slack Alerts Overview
+![Slack Alerts](screenshots/slack-alerts-overview.png)
+
+### Critical Malware Detection
+![Critical Malware](screenshots/slack-critical-malware.png)
 
 ## Author
 

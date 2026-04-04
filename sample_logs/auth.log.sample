@@ -1,0 +1,64 @@
+Mar 25 14:20:00 server sshd[1100]: Accepted password for alice from 10.0.0.2 port 51000 ssh2
+Mar 25 14:20:15 server sshd[1101]: Accepted password for bob from 10.0.0.3 port 51001 ssh2
+Mar 25 14:20:30 server CRON[1102]: pam_unix(cron:session): session opened for user root by (uid=0)
+Mar 25 14:20:30 server CRON[1102]: pam_unix(cron:session): session closed for user root
+Mar 25 14:21:00 server sshd[1103]: Accepted publickey for deploy from 10.0.0.10 port 60001 ssh2
+Mar 25 14:21:10 server sshd[1104]: Accepted password for charlie from 10.0.0.5 port 49100 ssh2
+Mar 25 14:21:30 server sudo[1105]: alice : TTY=pts/1 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/apt-get update
+Mar 25 14:21:30 server sudo[1105]: pam_unix(sudo:session): session opened for user root by alice(uid=1000)
+Mar 25 14:21:45 server sudo[1105]: pam_unix(sudo:session): session closed for user root
+Mar 25 14:22:00 server sshd[1150]: Invalid user guest from 172.16.0.99 port 40001
+Mar 25 14:22:01 server sshd[1150]: Failed password for invalid user guest from 172.16.0.99 port 40001 ssh2
+Mar 25 14:22:05 server sshd[1151]: Accepted password for alice from 192.168.1.50 port 52200 ssh2
+Mar 25 14:22:20 server CRON[1160]: pam_unix(cron:session): session opened for user www-data by (uid=33)
+Mar 25 14:22:20 server CRON[1160]: pam_unix(cron:session): session closed for user www-data
+Mar 25 14:22:40 server sshd[1170]: Accepted password for bob from 192.168.1.51 port 52300 ssh2
+Mar 25 14:22:55 server sshd[1201]: Accepted password for alice from 192.168.1.50 port 52341 ssh2
+Mar 25 14:23:01 server sshd[1234]: Failed password for john from 192.168.1.105 port 43210 ssh2
+Mar 25 14:23:08 server sshd[1235]: Failed password for john from 192.168.1.105 port 43211 ssh2
+Mar 25 14:23:12 server sshd[1236]: Failed password for admin from 192.168.1.105 port 43212 ssh2
+Mar 25 14:23:18 server sshd[1237]: Failed password for root from 192.168.1.105 port 43213 ssh2
+Mar 25 14:23:22 server sshd[1238]: Failed password for ubuntu from 192.168.1.105 port 43214 ssh2
+Mar 25 14:23:28 server sshd[1239]: Failed password for test from 192.168.1.105 port 43215 ssh2
+Mar 25 14:23:30 server sshd[1240]: Failed password for pi from 192.168.1.105 port 43216 ssh2
+Mar 25 14:23:35 server sshd[1241]: Connection closed by 192.168.1.105 port 43216 [preauth]
+Mar 25 14:23:40 server sshd[1242]: Accepted password for charlie from 10.0.0.5 port 49200 ssh2
+Mar 25 14:23:50 server sshd[1243]: Accepted publickey for deploy from 10.0.0.10 port 60010 ssh2
+Mar 25 14:23:55 server sudo[1250]: charlie : TTY=pts/2 ; PWD=/home/charlie ; USER=root ; COMMAND=/bin/ls /root
+Mar 25 14:24:01 server sudo[2001]: pam_unix(sudo:auth): authentication failure; logname=dave uid=1001 euid=0 tty=/dev/pts/0 rhost= user=dave
+Mar 25 14:24:05 server sshd[1260]: Accepted password for alice from 192.168.1.50 port 52500 ssh2
+Mar 25 14:24:10 server CRON[1270]: pam_unix(cron:session): session opened for user root by (uid=0)
+Mar 25 14:24:10 server CRON[1270]: pam_unix(cron:session): session closed for user root
+Mar 25 14:24:15 server sudo[2002]: pam_unix(sudo:auth): authentication failure; logname=dave uid=1001 euid=0 tty=/dev/pts/0 rhost= user=dave
+Mar 25 14:24:20 server sshd[1280]: Accepted password for bob from 10.0.0.3 port 51100 ssh2
+Mar 25 14:24:30 server sudo[2003]: pam_unix(sudo:auth): authentication failure; logname=dave uid=1001 euid=0 tty=/dev/pts/0 rhost= user=dave
+Mar 25 14:24:40 server sshd[1290]: Accepted password for alice from 10.0.0.2 port 51200 ssh2
+Mar 25 14:24:45 server sudo[2004]: pam_unix(sudo:auth): authentication failure; logname=dave uid=1001 euid=0 tty=/dev/pts/0 rhost= user=dave
+Mar 25 14:24:50 server sshd[1295]: Failed password for invalid user oracle from 203.0.113.50 port 33001 ssh2
+Mar 25 14:24:55 server sshd[1296]: Failed password for invalid user postgres from 203.0.113.50 port 33002 ssh2
+Mar 25 14:25:00 server sshd[1297]: Connection closed by invalid user oracle 203.0.113.50 port 33001 [preauth]
+Mar 25 14:25:05 server sudo[1300]: alice : TTY=pts/1 ; PWD=/home/alice ; USER=root ; COMMAND=/usr/bin/systemctl status nginx
+Mar 25 14:25:05 server sudo[1300]: pam_unix(sudo:session): session opened for user root by alice(uid=1000)
+Mar 25 14:25:06 server sudo[1300]: pam_unix(sudo:session): session closed for user root
+Mar 25 14:25:10 server sshd[1300]: Accepted password for bob from 185.220.101.1 port 55123 ssh2
+Mar 25 14:25:15 server sshd[1301]: Accepted password for alice from 192.168.1.50 port 52400 ssh2
+Mar 25 14:25:20 server CRON[1310]: pam_unix(cron:session): session opened for user backup by (uid=999)
+Mar 25 14:25:20 server CRON[1310]: pam_unix(cron:session): session closed for user backup
+Mar 25 14:25:30 server sshd[1301]: Accepted password for alice from 192.168.1.50 port 52400 ssh2
+Mar 25 14:25:45 server sshd[1302]: Accepted password for charlie from 10.0.0.5 port 49200 ssh2
+Mar 25 14:26:00 server sshd[1303]: Accepted password for charlie from 10.0.0.5 port 49200 ssh2
+Mar 25 14:26:05 server sshd[1304]: Failed password for invalid user ftpuser from 198.51.100.77 port 22100 ssh2
+Mar 25 14:26:10 server sudo[1320]: bob : TTY=pts/3 ; PWD=/home/bob ; USER=root ; COMMAND=/usr/bin/tail -f /var/log/syslog
+Mar 25 14:26:10 server sudo[1320]: pam_unix(sudo:session): session opened for user root by bob(uid=1002)
+Mar 25 14:26:11 server sudo[1320]: pam_unix(sudo:session): session closed for user root
+Mar 25 14:26:20 server sshd[1330]: Accepted password for deploy from 10.0.0.10 port 60020 ssh2
+Mar 25 14:26:30 server CRON[1340]: pam_unix(cron:session): session opened for user root by (uid=0)
+Mar 25 14:26:30 server CRON[1340]: pam_unix(cron:session): session closed for user root
+Mar 25 14:26:45 server sshd[1350]: Disconnected from user alice 192.168.1.50 port 52341
+Mar 25 14:27:00 server sshd[1360]: Accepted password for alice from 192.168.1.50 port 52600 ssh2
+Mar 25 14:27:10 server sshd[1361]: Accepted publickey for deploy from 10.0.0.10 port 60030 ssh2
+Mar 25 14:27:20 server sudo[1370]: charlie : TTY=pts/2 ; PWD=/tmp ; USER=root ; COMMAND=/bin/cat /etc/shadow
+Mar 25 14:27:30 server sshd[1380]: Accepted password for bob from 10.0.0.3 port 51300 ssh2
+Mar 25 14:27:45 server sshd[1390]: Disconnected from user bob 10.0.0.3 port 51100
+Mar 25 14:28:00 server CRON[1400]: pam_unix(cron:session): session opened for user www-data by (uid=33)
+Mar 25 14:28:00 server CRON[1400]: pam_unix(cron:session): session closed for user www-data
