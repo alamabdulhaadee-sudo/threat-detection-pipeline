@@ -12,6 +12,7 @@ An automated log ingestion and threat detection pipeline that monitors system lo
   - Malicious processes (mimikatz, netcat, meterpreter, etc.)
   - Port scanning (distinct destination ports per IP within a time window)
   - Anomalous login hours (logins outside configurable working hours window)
+  - Password spraying (many distinct usernames from one IP, distinct from brute force)
 - **Slack alerting** — formatted Block Kit messages with severity-based color coding
 - **Alert deduplication** — cooldown window prevents alert flooding
 - **SQLite persistence** — every alert stored locally for audit and reporting
@@ -80,7 +81,8 @@ threat-detection-pipeline/
 │   ├── privesc.py               # Privilege escalation detection
 │   ├── malware_indicators.py    # C2 IP + malicious process detection
 │   ├── port_scan.py             # Port scan detection (sliding window)
-│   └── anomalous_hours.py       # Off-hours login detection
+│   ├── anomalous_hours.py       # Off-hours login detection
+│   └── password_spray.py        # Password spray detection (many usernames, one IP)
 ├── alerting/
 │   ├── slack_sender.py          # Slack Block Kit webhook sender
 │   └── deduplicator.py          # Cooldown-based alert deduplication
@@ -89,7 +91,7 @@ threat-detection-pipeline/
 ├── reporting/
 │   └── summary.py               # Terminal + HTML report generator
 ├── sample_logs/                 # Demo log files for testing
-└── tests/                       # pytest suite (30 tests)
+└── tests/                       # pytest suite (38 tests)
 ```
 
 ## Running Tests
@@ -107,6 +109,7 @@ pytest tests/ -v
 [ALERT] [CRITICAL] malware_process | mimikatz detected on 10.10.10.99 | slack=sent
 [ALERT] [MEDIUM] port_scan | 45.33.32.156 | Port scan detected: probed 10 distinct ports within 30s | slack=sent
 [ALERT] [MEDIUM] anomalous_hours | 192.168.1.50 | Login outside expected hours: user 'alice' logged in at 02:14 from 192.168.1.50 | slack=sent
+[ALERT] [HIGH] password_spray | 192.168.1.99 | Password spray detected: 192.168.1.99 attempted 5 distinct usernames within 60s | slack=sent
 ```
 
 ## Screenshots
@@ -115,6 +118,16 @@ pytest tests/ -v
 30 tests across all detectors and alerting components — run with `pytest tests/ -v`.
 
 ![Tests Passed](screenshots/tests_passed.png)
+
+### Password Spray Detection — Tests Passing
+All 8 tests for the password spray detector passing, covering threshold boundaries, duplicate username handling, time window expiry, independent IP tracking, and correct HIGH severity classification.
+
+![Password Spray Tests](screenshots/password_spray_tests_passed.png)
+
+### Password Spray Detection — Slack Alert
+HIGH severity alert delivered to Slack showing the attacker IP, number of distinct usernames attempted, and the full list of targeted accounts — giving a SOC analyst everything needed to investigate a credential stuffing attempt.
+
+![Password Spray Slack](screenshots/password_spray_slack.png)
 
 ### Anomalous Login Hours — Tests Passing
 All 8 tests for the anomalous hours detector passing, covering business hours boundaries, early morning and late night logins, wrong action types, and independent tracking per user.

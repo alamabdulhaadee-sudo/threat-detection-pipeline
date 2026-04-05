@@ -15,6 +15,9 @@ thresholds:
   privesc:
     max_attempts: 3
     window_seconds: 120
+  password_spray:
+    max_usernames: 5
+    window_seconds: 60
   anomalous_hours:
     start_hour: 9   # 9 AM (inclusive)
     end_hour: 18    # 6 PM (exclusive)

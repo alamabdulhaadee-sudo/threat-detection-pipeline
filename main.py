@@ -13,6 +13,7 @@ from detectors.privesc import PrivescDetector
 from detectors.malware_indicators import MalwareDetector
 from detectors.port_scan import PortScanDetector
 from detectors.anomalous_hours import AnomalousHoursDetector
+from detectors.password_spray import PasswordSprayDetector
 from alerting.deduplicator import Deduplicator
 from alerting.slack_sender import SlackSender
 from storage.db import AlertDatabase
@@ -49,6 +50,7 @@ def main():
         MalwareDetector(config),
         PortScanDetector(config),
         AnomalousHoursDetector(config),
+        PasswordSprayDetector(config),
     ]
 
     # Report-only mode

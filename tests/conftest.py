@@ -45,6 +45,10 @@ def test_config():
                 "max_ports": 5,
                 "window_seconds": 60,
             },
+            "password_spray": {
+                "max_usernames": 5,
+                "window_seconds": 60,
+            },
             "anomalous_hours": {
                 "start_hour": 9,
                 "end_hour": 18,
