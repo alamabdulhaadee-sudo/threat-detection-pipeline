@@ -11,6 +11,7 @@ An automated log ingestion and threat detection pipeline that monitors system lo
   - Malware C2 IPs (blocklist matching)
   - Malicious processes (mimikatz, netcat, meterpreter, etc.)
   - Port scanning (distinct destination ports per IP within a time window)
+  - Anomalous login hours (logins outside configurable working hours window)
 - **Slack alerting** — formatted Block Kit messages with severity-based color coding
 - **Alert deduplication** — cooldown window prevents alert flooding
 - **SQLite persistence** — every alert stored locally for audit and reporting
@@ -78,7 +79,8 @@ threat-detection-pipeline/
 │   ├── brute_force.py           # SSH brute force detection
 │   ├── privesc.py               # Privilege escalation detection
 │   ├── malware_indicators.py    # C2 IP + malicious process detection
-│   └── port_scan.py             # Port scan detection (sliding window)
+│   ├── port_scan.py             # Port scan detection (sliding window)
+│   └── anomalous_hours.py       # Off-hours login detection
 ├── alerting/
 │   ├── slack_sender.py          # Slack Block Kit webhook sender
 │   └── deduplicator.py          # Cooldown-based alert deduplication
@@ -87,7 +89,7 @@ threat-detection-pipeline/
 ├── reporting/
 │   └── summary.py               # Terminal + HTML report generator
 ├── sample_logs/                 # Demo log files for testing
-└── tests/                       # pytest suite (22 tests)
+└── tests/                       # pytest suite (30 tests)
 ```
 
 ## Running Tests
@@ -104,14 +106,30 @@ pytest tests/ -v
 [ALERT] [CRITICAL] malware_c2_ip | 185.220.101.1 | Connection from known C2/malicious IP | slack=sent
 [ALERT] [CRITICAL] malware_process | mimikatz detected on 10.10.10.99 | slack=sent
 [ALERT] [MEDIUM] port_scan | 45.33.32.156 | Port scan detected: probed 10 distinct ports within 30s | slack=sent
+[ALERT] [MEDIUM] anomalous_hours | 192.168.1.50 | Login outside expected hours: user 'alice' logged in at 02:14 from 192.168.1.50 | slack=sent
 ```
 
 ## Screenshots
 
 ### All Tests Passing
-22 tests across all detectors and alerting components — run with `pytest tests/ -v`.
+30 tests across all detectors and alerting components — run with `pytest tests/ -v`.
 
 ![Tests Passed](screenshots/tests_passed.png)
+
+### Anomalous Login Hours — Tests Passing
+All 8 tests for the anomalous hours detector passing, covering business hours boundaries, early morning and late night logins, wrong action types, and independent tracking per user.
+
+![Anomalous Hours Tests](screenshots/anomalous_hours_tests_passed.png)
+
+### Anomalous Login Hours — Terminal Output
+Watch mode output showing the detector firing on three off-hours logins: alice at 02:14, bob at 23:47, and charlie at 18:05. Two normal business-hours logins in the same log file produce no alerts.
+
+![Anomalous Hours Terminal](screenshots/anomalous_hours_detection_terminal.png)
+
+### Anomalous Login Hours — Slack Alerts
+MEDIUM severity alerts delivered to Slack in real time. Each alert includes the username, exact login time, and source IP — giving a SOC analyst everything needed to investigate quickly.
+
+![Anomalous Hours Slack](screenshots/anomalous_hours_slack.png)
 
 ### Port Scan Detection — Terminal Output
 Live terminal output showing the port scan detector firing as a suspicious IP probes 10 distinct ports within 30 seconds.

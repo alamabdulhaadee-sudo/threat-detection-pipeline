@@ -12,6 +12,7 @@ from detectors.brute_force import BruteForceDetector
 from detectors.privesc import PrivescDetector
 from detectors.malware_indicators import MalwareDetector
 from detectors.port_scan import PortScanDetector
+from detectors.anomalous_hours import AnomalousHoursDetector
 from alerting.deduplicator import Deduplicator
 from alerting.slack_sender import SlackSender
 from storage.db import AlertDatabase
@@ -47,6 +48,7 @@ def main():
         PrivescDetector(config),
         MalwareDetector(config),
         PortScanDetector(config),
+        AnomalousHoursDetector(config),
     ]
 
     # Report-only mode

@@ -45,6 +45,10 @@ def test_config():
                 "max_ports": 5,
                 "window_seconds": 60,
             },
+            "anomalous_hours": {
+                "start_hour": 9,
+                "end_hour": 18,
+            },
             "malware": {
                 "blocklist_ips": ["185.220.101.1", "198.51.100.99"],
                 "suspicious_processes": ["mimikatz", "netcat", "meterpreter"],
